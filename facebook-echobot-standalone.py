@@ -9,15 +9,16 @@ from flask import Flask, request
 application = Flask(__name__)
 app = application
 PAT = 'replace_your_own_PAT_here'
+VERIFICATION_TOKEN = 'replace_your_own_token'
 
 @app.route('/', methods=['GET'])
 def handle_verification():
     print "Handling Verification."
-    if request.args.get('hub.verify_token', '') == 'your_own_token':
+    if request.args.get('hub.verify_token', '') == VERIFICATION_TOKEN:
         print "Webhook verified!"
         return request.args.get('hub.challenge', '')
     else:
-        print "Wrong verification token!"
+        return "Wrong verification token!"
 
 # ======================= Bot processing ===========================
 @app.route('/', methods=['POST'])
